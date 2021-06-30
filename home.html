@@ -1,1 +1,31 @@
-home.html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Paper.js Test</title>
+  <link rel="stylesheet" href="style.css">
+   <script type="text/javascript" src="paper-full.js"></script>
+  <script type="text/paperscript" canvas="myCanvas">
+    var path = new Path.Circle({
+      center: view.center,
+      radius: 20,
+      fillColor: 'blue'
+    });
+
+    var destination = Point.random() * view.size;
+
+    function onFrame(event) {
+      path.fillColor.hue += 1;
+      var vector = destination - path.position;
+      path.position += vector / 30;
+      if (vector.length < 5) {
+        destination = Point.random() * view.size;
+        path.scale(1.1);
+      }
+    }
+  </script>
+</head>
+<body>
+  <canvas id="myCanvas" resize></canvas>
+</body>
+</html>
